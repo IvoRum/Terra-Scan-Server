@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import com.terra.server.jwt.JwtUtil;
+
 @Service
 @Transactional(readOnly = true)
 @ReadingConverter
@@ -23,6 +24,7 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
         var authentication =
                 authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(
