@@ -1,10 +1,15 @@
 package com.terra.server.persistence;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "terra_user", schema = "public", catalog = "Terra_Scan")
-public class TerraUserEntity {
+public class TerraUserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -47,10 +52,6 @@ public class TerraUserEntity {
 
     public void setPhone(final String phone) {
         this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(final String password) {
@@ -97,5 +98,39 @@ public class TerraUserEntity {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (familyName != null ? familyName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

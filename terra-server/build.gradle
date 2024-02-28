@@ -24,14 +24,16 @@ repositories {
 dependencies {
     implementation files('D:\\2_Code\\Terra_Scan_WorkSpace\\Terra-Scan-Common\\terra-common\\build\\libs\\terra-common-0.0.1-SNAPSHOT.jar')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.12.5'
 }
 
 tasks.named('test') {
