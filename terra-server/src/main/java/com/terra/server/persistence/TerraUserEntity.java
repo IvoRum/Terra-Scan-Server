@@ -1,5 +1,6 @@
 package com.terra.server.persistence;
 
+import com.terra.server.type.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "terra_user", schema = "public", catalog = "Terra_Scan")
 public class TerraUserEntity implements UserDetails {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "id")
     private long id;
@@ -29,6 +30,9 @@ public class TerraUserEntity implements UserDetails {
     @Basic
     @Column(name = "family_name")
     private String familyName;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public long getId() {
         return id;
@@ -50,9 +54,7 @@ public class TerraUserEntity implements UserDetails {
         return phone;
     }
 
-    public void setPhone(final String phone) {
-        this.phone = phone;
-    }
+    public void setPhone(final String phone) {this.phone = phone;}
 
     public void setPassword(final String password) {
         this.password = password;
@@ -74,7 +76,12 @@ public class TerraUserEntity implements UserDetails {
         this.familyName = familyName;
     }
 
-    @Override public boolean equals(final Object o) {
+    public Role getRole() {return role;}
+
+    public void setRole(Role role) {this.role = role;}
+
+    @Override
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -90,7 +97,8 @@ public class TerraUserEntity implements UserDetails {
         return true;
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);

@@ -25,16 +25,15 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
-        var authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                                request.getEmail(),
-                                request.getPassword()
-                        )
-                );
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
 
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow(
-                ()-> new ResponseStatusException(
+                () -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "user not found"
                 )
         );
