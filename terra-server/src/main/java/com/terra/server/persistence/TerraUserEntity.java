@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "terra_user", schema = "public", catalog = "Terra_Scan")
+@Table(name = "terra_user1", schema = "public", catalog = "Terra_Scan")
 public class TerraUserEntity implements UserDetails {
 
     @Id
