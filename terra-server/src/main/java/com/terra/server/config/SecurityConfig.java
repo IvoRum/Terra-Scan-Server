@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/vi/auth/**","api/v1/draft/**")
+                .requestMatchers("/api/vi/auth/**","api/v1/draft/**","/health/**")
                 .permitAll().anyRequest().authenticated();
         http
                 .authenticationProvider(authenticationProvider());
