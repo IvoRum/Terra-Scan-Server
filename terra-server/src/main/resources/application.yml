@@ -5,3 +5,15 @@ spring:
   datasource:
     url: jdbc:postgresql://ep-lively-queen-99751851.eu-central-1.aws.neon.tech/Terra_Scan?user=IvoRum&password=RXvnYfB9m1Uz&sslmode=require
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  address: 192.168.0.105
+  port: 8081

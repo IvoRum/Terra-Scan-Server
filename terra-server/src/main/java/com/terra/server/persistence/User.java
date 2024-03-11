@@ -1,72 +1,71 @@
 package com.terra.server.persistence;
 
-import com.terra.server.type.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import com.terra.server.type.Role;
+import java.util.Set;
 
-@Entity
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Setter
-@Table(name = "terra_user", schema = "public", catalog = "Terra_Scan")
-public class TerraUserEntity implements UserDetails {
+@Table(name = "_user")
+public class User implements UserDetails {
 
     @Id
-    @Column(name = "id")
-    private long id;
-    @Basic
-    @Column(name = "email")
+    @GeneratedValue
+    private Integer id;
+    private String firstname;
+    private String lastname;
     private String email;
-    @Basic
-    @Column(name = "phone")
-    private String phone;
-    @Basic
-    @Column(name = "password")
     private String password;
-    @Basic
-    @Column(name = "first_name")
-    private String firstName;
-    @Basic
-    @Column(name = "family_name")
-    private String familyName;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
+
 }
