@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.terra.server.jwt.JwtUtil;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @ReadingConverter
 @RequiredArgsConstructor
 public class AuthenticationService {
