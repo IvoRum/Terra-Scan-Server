@@ -24,6 +24,9 @@ select ST_AsText(geom), * from soil
 where country='BULGARIA'
 ;
 
+select ST_AsText(geom) as polygon from soil " +
+                "where country='BULGARIA';
+
 select st_area(geom) from soil;
 
 SELECT
