@@ -18,7 +18,7 @@ public class SoilRepositoryPOC {
                 "where country='BULGARIA';";
         Connection connection = DataSourceUtils.getConnection(dataSource);
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            
+
 
         }
     }
