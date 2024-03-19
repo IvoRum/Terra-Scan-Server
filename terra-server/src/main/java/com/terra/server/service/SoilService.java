@@ -1,5 +1,6 @@
 package com.terra.server.service;
 
+import com.terra.server.model.responce.SoilPointDTO;
 import com.terra.server.repository.SoilRepositoryPOC;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.convert.ReadingConverter;
@@ -15,7 +16,7 @@ import java.util.List;
 public class SoilService {
     private final SoilRepositoryPOC repositoryPOC;
 
-    public List<String> getSoidBG(){
+    public List<SoilPointDTO> getSoidBG(){
         return repositoryPOC.getSoil();
     }
 }
