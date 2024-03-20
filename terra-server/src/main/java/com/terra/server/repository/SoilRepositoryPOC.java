@@ -22,7 +22,6 @@ public class SoilRepositoryPOC {
     private final DataSource dataSource;
     static final Pattern SPLIT_SPACE_UNICODE_PATTERN = Pattern.compile("\\p{Blank}+", UNICODE_CHARACTER_CLASS);
 
-
     public List<SoilPointDTO> getSoil() {
         String sql = "select ST_AsText(geom) as polygon from soil " +
                 "where country='BULGARIA';";
@@ -39,19 +38,6 @@ public class SoilRepositoryPOC {
         }
     }
 
-    public List<String> parceMultuPolygon(String multipolygon) {
-        String patternString = "MULTIPOLYGON\\(\\(\\(([\\d.]+ [\\d.]+(?:,|\\s)+)+\\)\\)\\)\n";
-        String result = multipolygon.replaceFirst("^MULTIPOLYGON", "");
-        Pattern pattern = Pattern.compile(patternString);
-
-        Matcher matcher = pattern.matcher(multipolygon);
-
-        List<String> polygons=new ArrayList<>();
-        while (matcher.find()) {
-            polygons.add( matcher.group());
-        }
-        return polygons;
-    }
     public static List<SoilPointDTO> parsePolygons(String input) {
         List<SoilPointDTO> soilPoints=new ArrayList<>();
         String patternString = "\\(([^\\(\\)]+)\\)";
@@ -62,7 +48,6 @@ public class SoilRepositoryPOC {
             String polygon = matcher.group(1);
             String[] parts = polygon.split(",");
             for(String point: parts){
-                String[] longAndLat = polygon.split("\\s+");
                 String[] splitUnicode = SPLIT_SPACE_UNICODE_PATTERN.split(point);
                 float lon = Float.parseFloat(splitUnicode[0]);
                 float lat = Float.parseFloat(splitUnicode[1]);
