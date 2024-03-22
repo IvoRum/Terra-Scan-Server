@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -17,6 +18,11 @@ public class SoilController {
     private final SoilService soilService;
     @GetMapping
     public ResponseEntity<List<SoilPointDTO>> check(){
+        return ResponseEntity.ok(soilService.getSoidBG());
+    }
+
+    @PostMapping
+    public ResponseEntity<List<SoilPointDTO>> aria(){
         return ResponseEntity.ok(soilService.getSoidBG());
     }
 }
