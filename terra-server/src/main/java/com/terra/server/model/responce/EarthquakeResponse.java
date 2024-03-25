@@ -1,5 +1,6 @@
 package com.terra.server.model.responce;
 
+import com.terra.server.model.responce.dto.EarthquakeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

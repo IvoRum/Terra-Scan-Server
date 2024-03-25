@@ -1,5 +1,6 @@
 package com.terra.server.model.responce;
 
+import com.terra.server.model.responce.dto.SoilDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,5 +13,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SoilResponse {
-    private List<SoilPointDTO> multipolygon;
+    private List<SoilDTO> soilRecords;
 }

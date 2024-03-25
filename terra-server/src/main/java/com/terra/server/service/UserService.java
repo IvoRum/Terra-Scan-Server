@@ -1,7 +1,6 @@
 package com.terra.server.service;
 
 import com.terra.server.model.responce.UserDataResponse;
-import com.terra.server.model.responce.UserModel;
 import com.terra.server.persistence.User;
 import com.terra.server.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
