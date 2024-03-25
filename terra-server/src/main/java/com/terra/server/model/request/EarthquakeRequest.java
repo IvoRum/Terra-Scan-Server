@@ -4,5 +4,7 @@ import lombok.Data;
 
 @Data
 public class EarthquakeRequest {
-    private Integer Magnitude;
+    private double latitude;
+    private double longitude;
+    private double radius;
 }

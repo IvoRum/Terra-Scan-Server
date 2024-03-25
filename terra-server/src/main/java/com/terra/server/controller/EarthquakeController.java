@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EarthquakeController {
     private final EarthquakeService earthquakeService;
 
-    @PostMapping("/withMagnitude")
+    @PostMapping("/withPosition")
     public ResponseEntity<EarthquakeResponse> getEarthqukesWithMagnitude(@RequestBody EarthquakeRequest request) {
         return ResponseEntity.ok(earthquakeService.getEarthquakes(request));
     }

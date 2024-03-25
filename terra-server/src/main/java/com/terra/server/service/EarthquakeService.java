@@ -17,8 +17,9 @@ public class EarthquakeService {
     private final EarthquakeRepository repository;
 
     public EarthquakeResponse getEarthquakes(EarthquakeRequest request) {
+        var earthquakes = repository.getEarthquakes(request.getLatitude(),request.getLongitude(),request.getRadius());
         return EarthquakeResponse.builder()
-                .allEarthquakesInArea(repository.getEarthquakes())
+                .allEarthquakesInArea(earthquakes)
                 .build();
     }
 }

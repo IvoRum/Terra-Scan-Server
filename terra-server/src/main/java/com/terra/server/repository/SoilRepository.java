@@ -71,4 +71,9 @@ public class SoilRepository extends BaseRepository {
             throw new RuntimeException();
         }
     }
+
+    @Override
+    protected List<Double> getParams() {
+        return null;
+    }
 }

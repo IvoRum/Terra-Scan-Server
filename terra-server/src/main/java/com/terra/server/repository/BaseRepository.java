@@ -22,6 +22,15 @@ public abstract class BaseRepository {
     protected final DataSource dataSource;
     private static final Pattern SPLIT_SPACE_UNICODE_PATTERN = Pattern.compile("\\p{Blank}+", UNICODE_CHARACTER_CLASS);
 
+    private static final String WithClause = "WITH point AS (" +
+            "    SELECT ST_SetSRID(ST_MakePoint(?, ?), 4326) AS geom" +
+            ")" +
+            ", buffered_point AS (" +
+            "    SELECT ST_Buffer(geom, ?) AS geom" +
+            "    FROM point" +
+            ")";
+    private static final String WhereClause =  " WHERE ST_Intersects(vt.geom, (SELECT geom FROM buffered_point));";
+
     protected final List<PolygonPoint> parsePolygons(String input) {
         List<PolygonPoint> polygonPoints = new ArrayList<>();
         String patternString = "\\(([^\\(\\)]+)\\)";
@@ -43,7 +52,13 @@ public abstract class BaseRepository {
 
     protected final ResultSet executeSelectQuery(final String Query) throws SQLException {
         Connection connection = dataSource.getConnection();
-            PreparedStatement statement = connection.prepareStatement(Query);
+            PreparedStatement statement = connection.prepareStatement(WithClause + Query + WhereClause);
+            int paramIndex = 1;
+            for(Double param : getParams()){
+                statement.setObject(paramIndex++, param);
+            }
             return statement.executeQuery();
     }
+
+    protected abstract List<Double> getParams();
 }
