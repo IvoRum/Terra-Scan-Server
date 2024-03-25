@@ -60,5 +60,11 @@ public abstract class BaseRepository {
             return statement.executeQuery();
     }
 
+    protected final ResultSet executeSimpleSelectQuery(final String Query) throws SQLException {
+        Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(Query);
+        return statement.executeQuery();
+    }
+
     protected abstract List<Double> getParams();
 }
