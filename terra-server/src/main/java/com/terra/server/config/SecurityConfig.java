@@ -37,12 +37,11 @@ public class SecurityConfig {
         http
                 .cors().and()
                 .csrf().disable()
-
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/vi/auth/**","api/v1/draft/**","/health/**","/soil/**")
+                .requestMatchers("/api/vi/auth/**","api/v1/draft/**","/health/**")
                 .permitAll().anyRequest().authenticated();
         http
                 .authenticationProvider(authenticationProvider());

@@ -2,5 +2,6 @@ package com.terra.server.type;
 
 public enum Role {
     USER,
-    ADMIN
+    ADMIN,
+    SUPERADMIN
 }
