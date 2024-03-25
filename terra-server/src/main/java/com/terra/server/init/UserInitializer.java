@@ -32,7 +32,7 @@ public class UserInitializer implements CommandLineRunner {
         userAdmin.setEmail("ivoAdmin@mail.com");
         userAdmin.setPassword(passwordEncoder.encode("12345678"));
         userAdmin.setRole(Role.ADMIN);
-        userAdmin.setFirstname("Ivo");
+        userAdmin.setFirstname("IvoAdmin");
         userRepository.save(userAdmin);
 
         User userSuperAdmin = new User();
