@@ -19,7 +19,7 @@ import static java.util.regex.Pattern.UNICODE_CHARACTER_CLASS;
 @RequiredArgsConstructor
 public abstract class BaseRepository {
 
-    private final DataSource dataSource;
+    protected final DataSource dataSource;
     private static final Pattern SPLIT_SPACE_UNICODE_PATTERN = Pattern.compile("\\p{Blank}+", UNICODE_CHARACTER_CLASS);
 
     protected final List<PolygonPoint> parsePolygons(String input) {
@@ -41,15 +41,9 @@ public abstract class BaseRepository {
         return polygonPoints;
     }
 
-    protected final ResultSet executeSelectQuery(final String Query){
-        try (Connection connection = dataSource.getConnection()) {
+    protected final ResultSet executeSelectQuery(final String Query) throws SQLException {
+        Connection connection = dataSource.getConnection();
             PreparedStatement statement = connection.prepareStatement(Query);
-            var resultSet = statement.executeQuery();
-            statement.close();
-            connection.close();
-            return resultSet;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            return statement.executeQuery();
     }
 }

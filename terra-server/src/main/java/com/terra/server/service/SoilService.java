@@ -14,9 +14,13 @@ import java.util.List;
 @ReadingConverter
 @RequiredArgsConstructor
 public class SoilService {
-    private final SoilRepository repositoryPOC;
+    private final SoilRepository repository;
 
     public List<SoilDTO> getSoidBG(){
-        return repositoryPOC.getSoil();
+        return repository.getTestSoil();
+    }
+
+    public List<SoilDTO> getSoilInAria(final double latitude, final double longitude, final double zoom){
+        return repository.getSoil(latitude, longitude, zoom);
     }
 }
