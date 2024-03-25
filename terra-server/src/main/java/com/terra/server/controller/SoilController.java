@@ -1,6 +1,6 @@
 package com.terra.server.controller;
 
-import com.terra.server.model.responce.SoilPointDTO;
+import com.terra.server.model.responce.dto.SoilDTO;
 import com.terra.server.service.SoilService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +17,12 @@ import java.util.List;
 public class SoilController {
     private final SoilService soilService;
     @GetMapping
-    public ResponseEntity<List<SoilPointDTO>> check(){
+    public ResponseEntity<List<SoilDTO>> check(){
         return ResponseEntity.ok(soilService.getSoidBG());
     }
 
     @PostMapping
-    public ResponseEntity<List<SoilPointDTO>> aria(){
+    public ResponseEntity<List<SoilDTO>> aria(){
         return ResponseEntity.ok(soilService.getSoidBG());
     }
 }
