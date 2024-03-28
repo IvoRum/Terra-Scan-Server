@@ -24,7 +24,15 @@ public class SoilRepository extends BaseRepository {
             "FROM soil s " +
             "WHERE ST_Intersects(s.geom, (SELECT geom FROM buffered_point));";
 
-    private final static String soilInAriaPolygonSql="WITH point AS ( " +
+    private final static String soilInAriaPolygonSql=
+            "WITH point AS (  SELECT ST_SetSRID(ST_MakePoint(?,?), 4326) AS geom ), " +
+            " buffered_point AS ( SELECT ST_Buffer(geom, ?) AS geom FROM point) " +
+            " SELECT s.snum AS soilNumber, s.faosoil AS soilType, ST_AsText((ST_DumpRings((ST_Dump(s.geom)).geom)).geom) AS polygon " +
+            " FROM soil s " +
+            " JOIN buffered_point bp ON ST_Intersects(s.geom, bp.geom);";
+
+            /*
+            "WITH point AS ( " +
             "    SELECT ST_SetSRID(ST_MakePoint(?, ?), 4326) AS geom " +
             "), " +
             "buffered_point AS ( " +
@@ -35,6 +43,8 @@ public class SoilRepository extends BaseRepository {
             "FROM soil s " +
             "JOIN buffered_point bp ON ST_Intersects(s.geom, bp.geom) " +
             "WHERE ST_GeometryType(s.geom) = 'ST_MultiPolygon';";
+
+             */
 
     public SoilRepository(DataSource dataSource) {
         super(dataSource);
