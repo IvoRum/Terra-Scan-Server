@@ -3,7 +3,7 @@ spring:
     jwtSecret: s3cr37
     jwtExpirationMs: 36000000
   datasource:
-    url: jdbc:postgresql://ep-lively-queen-99751851.eu-central-1.aws.neon.tech/Terra_Scan?user=IvoRum&password=RXvnYfB9m1Uz&sslmode=require
+    url: jdbc:postgresql://YOUR CONNECTION STRING
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -15,5 +15,5 @@ spring:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 server:
-  address: 192.168.0.105
+  address: YOUR IP
   port: 8081

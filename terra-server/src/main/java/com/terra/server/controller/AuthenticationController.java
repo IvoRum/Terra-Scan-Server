@@ -4,7 +4,6 @@ import com.terra.server.model.request.AuthenticationRequest;
 import com.terra.server.model.request.RegistrationRequest;
 import com.terra.server.model.responce.AuthenticationResponse;
 import com.terra.server.service.AuthenticationService;
-import com.terra.server.service.LoginService;
 import com.terra.server.service.RegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,6 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
     private final RegisterService registerService;
-    private final LoginService loginService;
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
@@ -40,12 +38,4 @@ public class AuthenticationController {
         }
         return ResponseEntity.ok(response);
     }
-
-    @PostMapping("/logIn")
-    public ResponseEntity<AuthenticationResponse> logInUser(
-            @RequestBody AuthenticationRequest request
-    ) {
-        return loginService.logInUser(request);
-    }
-
 }

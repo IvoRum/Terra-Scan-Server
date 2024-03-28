@@ -1,6 +1,5 @@
 package com.terra.server.init;
 
-import com.terra.server.persistence.TerraUserEntity;
 import com.terra.server.persistence.User;
 import com.terra.server.repository.UserRepository;
 import com.terra.server.type.Role;
