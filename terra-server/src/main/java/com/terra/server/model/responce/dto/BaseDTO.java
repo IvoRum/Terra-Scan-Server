@@ -7,4 +7,5 @@ import java.util.List;
 @Data
 public abstract class BaseDTO {
     private List<PolygonPoint> coordinates;
+    private PolygonPoint centerPoint;
 }

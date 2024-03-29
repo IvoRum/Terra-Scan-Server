@@ -172,9 +172,12 @@ buffered_point AS (
     SELECT ST_Buffer(geom, 1.0) AS geom
     FROM point
 )
-SELECT s.snum AS soilNumber, s.faosoil AS soilType,ST_AsText((ST_DumpRings((ST_Dump(s.geom)).geom)).geom) AS geom
+SELECT s.snum AS soilNumber, s.faosoil AS soilType,ST_AsText((ST_DumpRings((ST_Dump(s.geom)).geom)).geom) AS geom,
+       ST_X(ST_Centroid(s.geom)) AS lon, ST_Y(ST_Centroid(s.geom)) AS lat
 FROM soil s
 JOIN buffered_point bp ON ST_Intersects(s.geom, bp.geom);
+
+
 
 SELECT s.snum AS soilNumber, s.faosoil AS soilType, ST_AsText((ST_DumpRings((ST_Dump(s.geom)).geom)).geom) AS polygon
             FROM soil s;

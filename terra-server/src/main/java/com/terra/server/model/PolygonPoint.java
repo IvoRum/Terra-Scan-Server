@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PolygonPoint {
-    private float lon;
-    private float lat;
+    private double lon;
+    private double lat;
 }
