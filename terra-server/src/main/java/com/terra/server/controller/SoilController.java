@@ -19,13 +19,13 @@ import java.util.List;
 public class SoilController {
     private final SoilService soilService;
 
-    @GetMapping
-    public ResponseEntity<List<SoilDTO>> check() {
+    @GetMapping("/test")
+    public ResponseEntity<List<SoilDTO>> getTestSoil() {
         return ResponseEntity.ok(soilService.getSoidBG());
     }
 
     @PostMapping
-    public ResponseEntity<List<SoilDTO>> aria(@RequestBody SoilAriaRequest soilAriaRequest) {
+    public ResponseEntity<List<SoilDTO>> getSoilInAria(@RequestBody SoilAriaRequest soilAriaRequest) {
         return ResponseEntity.ok(
                 soilService.getSoilInAria(soilAriaRequest.getLatitude(), soilAriaRequest.getLongitude(), soilAriaRequest.getZoom()));
     }
