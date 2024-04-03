@@ -2,7 +2,6 @@ package com.terra.server.service;
 
 import com.mongodb.client.MongoClients;
 import com.terra.server.model.responce.dto.SoilDTO;
-import com.terra.server.persistence.TerraLogEntity;
 import com.terra.server.repository.SoilRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.convert.ReadingConverter;
@@ -22,13 +21,6 @@ public class SoilService {
 
 
     public List<SoilDTO> getSoidBG(){
-        MongoTemplate mongoTemplate =
-                new MongoTemplate
-                        (MongoClients.create(String.format(CONNECTION_STRING)), "prod");
-        var log = new TerraLogEntity();
-        log.setToken("123");
-        log.setUserEmail("dgg");
-        mongoTemplate.insert(log);
         return repository.getTestSoil();
     }
 

@@ -38,6 +38,7 @@ public class RegisterService {
         userRepository.save(toRegister);
 
         return authenticationService.authenticate(
-                new AuthenticationRequest(request.getEmail(),request.getPassword()));
+                new AuthenticationRequest(request.getEmail(),request.getPassword(),
+                        request.getMacAddress(),request.getIpAddress()));
     }
 }

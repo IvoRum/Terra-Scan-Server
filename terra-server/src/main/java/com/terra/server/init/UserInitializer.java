@@ -1,19 +1,12 @@
 package com.terra.server.init;
 
-import com.mongodb.client.MongoClients;
-import com.terra.server.persistence.TerraLogEntity;
-import com.terra.server.persistence.TerraUserEntity;
 import com.terra.server.persistence.User;
 import com.terra.server.repository.UserRepository;
 import com.terra.server.type.Role;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.sql.Date;
 
 @Component
 public class UserInitializer implements CommandLineRunner {

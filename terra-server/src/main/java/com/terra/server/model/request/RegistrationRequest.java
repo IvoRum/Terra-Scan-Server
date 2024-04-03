@@ -14,4 +14,6 @@ public class RegistrationRequest {
     private String password;
     private String firstName;
     private String lastName;
+    private String ipAddress;
+    private String macAddress;
 }

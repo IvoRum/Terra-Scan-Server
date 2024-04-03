@@ -5,14 +5,19 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-@Document(collection = "terra_log")
+import java.util.Date;
+
+@Document(collection = "terra_user_log")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class TerraLogEntity {
+public class TerraUserLogEntity {
     @MongoId
     private ObjectId id;
     private String userEmail;
     private String token;
+    private String ipAddress;
+    private String macAddress;
+    private Date date;
 }
