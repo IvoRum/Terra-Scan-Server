@@ -58,6 +58,7 @@ public class AuthenticationService {
         mongoTemplate.insert(log);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
+                .role(user.getRole().toString())
                 .build();
     }
 }
