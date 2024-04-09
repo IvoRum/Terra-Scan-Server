@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/user")
 @RequiredArgsConstructor
@@ -20,5 +22,10 @@ public class UserController {
     public ResponseEntity<UserDataResponse> getUserData(
             @CurrentSecurityContext(expression = "authentication") Authentication authentication) {
         return ResponseEntity.ok(userService.getUserData(authentication.getName()));//In this case the name is the email of the use
+    }
+
+    @GetMapping("/super/all")
+    public ResponseEntity<List<UserDataResponse>> getAllUserData(@CurrentSecurityContext(expression = "authentication") Authentication authentication) {
+        return ResponseEntity.ok(userService.getAllUsersData());
     }
 }

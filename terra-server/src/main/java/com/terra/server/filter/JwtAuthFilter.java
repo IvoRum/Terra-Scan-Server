@@ -62,6 +62,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     filterChain.doFilter(request, response);
                     return;
                 }
+                if (request.getServletPath().contains("/super") &&
+                        !(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(Role.SUPERADMIN.name())))) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
             } else {
                 filterChain.doFilter(request,response);
                 return;
