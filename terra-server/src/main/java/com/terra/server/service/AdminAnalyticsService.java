@@ -1,6 +1,7 @@
 package com.terra.server.service;
 
 import com.terra.server.model.responce.dto.LoginDataDTO;
+import com.terra.server.model.responce.dto.SearchDataDTO;
 import com.terra.server.repository.AdminAnalyticsDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.convert.ReadingConverter;

@@ -24,7 +24,8 @@ public class AuthenticationController {
             @RequestHeader("Host") String remoteAddress
     ) {
         request.setIpAddress(remoteAddress);
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+        var response = authenticationService.authenticate(request);
+        return response.getAccessToken() != null ? ResponseEntity.ok(response) : ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @PostMapping("/register")

@@ -1,6 +1,6 @@
 package com.terra.server.controller;
 
-import com.terra.server.model.request.AuthenticationRequest;
+import com.terra.server.model.request.UserChangeStatusRequest;
 import com.terra.server.model.request.UserLogDataRequest;
 import com.terra.server.model.responce.UserDataResponse;
 import com.terra.server.model.responce.dto.LoginDataDTO;
@@ -41,5 +41,33 @@ public class UserController {
             @RequestBody UserLogDataRequest request
     ) {
         return ResponseEntity.ok(adminAnalyticsService.getAllLogDataForUser(request.getEmail()));
+    }
+
+
+
+    @PostMapping("super/makeUserAdmin")
+    public ResponseEntity<String> makeUserAdmin(@RequestBody UserChangeStatusRequest request){
+        if(userService.makeUserAdmin(request.getUserEmail())){
+            return ResponseEntity.ok("Successfully made admin " + request.getUserEmail());
+        } else {
+            return ResponseEntity.internalServerError().body("Error has occured.");
+        }
+    }
+
+    @PostMapping("super/banUser")
+    public ResponseEntity<String> banUser(@RequestBody UserChangeStatusRequest request){
+        if(userService.banUser(request.getUserEmail())){
+            return ResponseEntity.ok("Successfully banned " + request.getUserEmail());
+        } else {
+            return ResponseEntity.internalServerError().body("Error has occured.");
+        }
+    }
+    @PostMapping("super/unBanUser")
+    public ResponseEntity<String> unBanUser(@RequestBody UserChangeStatusRequest request){
+        if(userService.unbanUser(request.getUserEmail())){
+            return ResponseEntity.ok("Successfully unbanned " + request.getUserEmail());
+        } else {
+            return ResponseEntity.internalServerError().body("Error has occured.");
+        }
     }
 }
