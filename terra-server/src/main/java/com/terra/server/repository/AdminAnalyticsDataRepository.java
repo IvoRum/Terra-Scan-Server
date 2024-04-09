@@ -5,9 +5,11 @@ import com.terra.server.persistence.TerraUserLogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.crypto.Cipher;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,16 @@ public class AdminAnalyticsDataRepository {
 
     public List<LoginDataDTO> findLogsDateDesc(int startRow) {
         Query query = new Query().skip(startRow).limit(100).with(Sort.by(Sort.Direction.DESC, "date"));
+        var docs =  mongoTemplate.find(query, TerraUserLogEntity.class);
+        var res = new ArrayList<LoginDataDTO>();
+        for (var doc : docs) {
+            res.add(new LoginDataDTO(doc.getUserEmail(),doc.getToken(),doc.getIpAddress(),doc.getMacAddress(),doc.getDate().toString()));
+        }
+        return res;
+    }
+
+    public List<LoginDataDTO> findLogsDateByEmail(String email) {
+        Query query = new Query().addCriteria(Criteria.where("userEmail").is(email));
         var docs =  mongoTemplate.find(query, TerraUserLogEntity.class);
         var res = new ArrayList<LoginDataDTO>();
         for (var doc : docs) {

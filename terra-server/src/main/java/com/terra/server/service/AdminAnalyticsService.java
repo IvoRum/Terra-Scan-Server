@@ -19,4 +19,8 @@ public class AdminAnalyticsService {
     public List<LoginDataDTO> getLoginData(int page) {
         return logRepository.findLogsDateDesc((page - 1) * 100);
     }
+
+    public List<LoginDataDTO> getAllLogDataForUser(String email) {
+        return logRepository.findLogsDateByEmail(email);
+    }
 }
