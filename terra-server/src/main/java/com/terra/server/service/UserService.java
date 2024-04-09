@@ -30,41 +30,43 @@ public class UserService {
         List<UserDataResponse> userDataResponses = new ArrayList<>();
         allUsers.forEach(user -> {
             if (user.getRole() != Role.SUPERADMIN) {
-                userDataResponses.add(new UserDataResponse(user.getFirstname(), user.getLastname(), user.getEmail()));
+                if (user.getRole() != Role.BANNED) {
+                    userDataResponses.add(new UserDataResponse(user.getFirstname(), user.getLastname(), user.getEmail()));
+                }
             }
         });
         return userDataResponses;
     }
 
-    public boolean makeUserAdmin(String userEmail){
+    public boolean makeUserAdmin(String userEmail) {
         try {
             User userData = userRepository.findByEmail(userEmail).orElseThrow();
             userData.setRole(Role.ADMIN);
             userRepository.save(userData);
             return true;
-        } catch (Throwable t){
+        } catch (Throwable t) {
             return false;
         }
     }
 
-    public boolean banUser(String userEmail){
+    public boolean banUser(String userEmail) {
         try {
             User userData = userRepository.findByEmail(userEmail).orElseThrow();
             userData.setRole(Role.BANNED);
             userRepository.save(userData);
             return true;
-        } catch (Throwable t){
+        } catch (Throwable t) {
             return false;
         }
     }
 
-    public boolean unbanUser(String userEmail){
+    public boolean unbanUser(String userEmail) {
         try {
             User userData = userRepository.findByEmail(userEmail).orElseThrow();
             userData.setRole(Role.USER);
             userRepository.save(userData);
             return true;
-        } catch (Throwable t){
+        } catch (Throwable t) {
             return false;
         }
     }
