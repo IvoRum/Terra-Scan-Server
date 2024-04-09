@@ -4,5 +4,6 @@ public enum Role {
     USER,
     ADMIN,
     SUPERADMIN,
-    DEV
+    DEV,
+    BANNED
 }

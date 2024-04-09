@@ -9,6 +9,7 @@ import org.springframework.data.convert.ReadingConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,5 +34,38 @@ public class UserService {
             }
         });
         return userDataResponses;
+    }
+
+    public boolean makeUserAdmin(String userEmail){
+        try {
+            User userData = userRepository.findByEmail(userEmail).orElseThrow();
+            userData.setRole(Role.ADMIN);
+            userRepository.save(userData);
+            return true;
+        } catch (Throwable t){
+            return false;
+        }
+    }
+
+    public boolean banUser(String userEmail){
+        try {
+            User userData = userRepository.findByEmail(userEmail).orElseThrow();
+            userData.setRole(Role.BANNED);
+            userRepository.save(userData);
+            return true;
+        } catch (Throwable t){
+            return false;
+        }
+    }
+
+    public boolean unbanUser(String userEmail){
+        try {
+            User userData = userRepository.findByEmail(userEmail).orElseThrow();
+            userData.setRole(Role.USER);
+            userRepository.save(userData);
+            return true;
+        } catch (Throwable t){
+            return false;
+        }
     }
 }
