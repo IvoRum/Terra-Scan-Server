@@ -23,4 +23,8 @@ public class AdminAnalyticsService {
     public List<LoginDataDTO> getAllLogDataForUser(String email) {
         return logRepository.findLogsDateByEmail(email);
     }
+
+    public List<SearchDataDTO> getSearchData(int page, String searchType) {
+        return logRepository.findSearchLogsDateDesc(1,searchType);
+    }
 }
