@@ -2,6 +2,7 @@ package com.terra.server.filter;
 
 import com.terra.server.jwt.JwtUtil;
 import com.terra.server.repository.UserRepository;
+import com.terra.server.type.Role;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @Component
@@ -49,7 +52,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         userEmail = jwtUtil.extractUsername(jwtToken);
 
         if (userEmail != null) {
-            UserDetails userDetails = this.userRepository.findByEmail(userEmail).get();
+            var optionalDetails = this.userRepository.findByEmail(userEmail);
+            UserDetails userDetails;
+            if(optionalDetails.isPresent()){
+                userDetails = optionalDetails.get();
+                if (request.getServletPath().contains("/admin") &&
+                        !(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(Role.ADMIN.name()))
+                            || userDetails.getAuthorities().contains(new SimpleGrantedAuthority(Role.SUPERADMIN.name())))) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+                if (request.getServletPath().contains("/super") &&
+                        !(userDetails.getAuthorities().contains(new SimpleGrantedAuthority(Role.SUPERADMIN.name())))) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
+            } else {
+                filterChain.doFilter(request,response);
+                return;
+            }
 
             if (jwtUtil.isTokenValid(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(

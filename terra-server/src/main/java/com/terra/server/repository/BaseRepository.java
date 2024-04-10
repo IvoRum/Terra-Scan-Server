@@ -67,4 +67,25 @@ public abstract class BaseRepository {
     }
 
     protected abstract List<Double> getParams();
+
+    public String getCountryOfPoint(double Latitude, double Longitude) {
+        String query =
+                "WITH point AS (  SELECT ST_SetSRID(ST_MakePoint(?,?), 4326) AS geom ) " +
+                        " SELECT s.country as country FROM soil s JOIN point p ON ST_Intersects(s.geom, p.geom);";
+        try(Connection connection = dataSource.getConnection()){
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setDouble(1, Latitude);
+            statement.setDouble(2, Longitude);
+            ResultSet resultSet = statement.executeQuery();
+            String country = null;
+            if(resultSet.next()){
+                country = resultSet.getString("country");
+            }
+            resultSet.close();
+            statement.close();
+            return country;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

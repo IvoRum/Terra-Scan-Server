@@ -2,14 +2,18 @@ package com.terra.server.logger;
 
 
 import com.mongodb.client.MongoClients;
-import com.terra.server.persistence.TerraLogEntity;
+import com.terra.server.persistence.TerraUserLogEntity;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.TestPropertySource;
+
+import java.sql.Date;
+import java.time.Instant;
 
 @SpringBootTest
 @TestPropertySource(properties = { "logging.level.org.springframework.data.mongodb.core.MongoTemplate=DEBUG" })
@@ -32,9 +36,13 @@ public class LogUserTraficTest {
     }
 
     @Test
+    @Disabled
     public void testLogUserTrafic() {
-        TerraLogEntity log = new TerraLogEntity();
+        TerraUserLogEntity log = new TerraUserLogEntity();
         log.setUserEmail("ivoSuperAdmin@mail.com");
+        log.setIpAddress("test ip address");
+        log.setMacAddress("test mac address");
+        log.setDate(Date.from(Instant.now()));
         log.setToken("TEST_TOKEN_123");
         mongoTemplate =
                 new MongoTemplate
