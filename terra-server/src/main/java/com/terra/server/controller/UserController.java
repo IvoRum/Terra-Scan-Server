@@ -63,6 +63,12 @@ public class UserController {
             return ResponseEntity.internalServerError().body(new BanResponse("Error has occured."));
         }
     }
+
+    @GetMapping("super/bandUser")
+    public ResponseEntity<List<UserDataResponse>> getAllUserBandData(@CurrentSecurityContext(expression = "authentication") Authentication authentication){
+        return ResponseEntity.ok(userService.getBanedUsers());
+    }
+
     @PostMapping("super/unBanUser")
     public ResponseEntity<BanResponse> unBanUser(@RequestBody UserChangeStatusRequest request){
         if(userService.unbanUser(request.getUserEmail())){

@@ -70,4 +70,17 @@ public class UserService {
             return false;
         }
     }
+
+    public List<UserDataResponse> getBanedUsers() {
+        List<User> allUsers = userRepository.findAll();
+        List<UserDataResponse> userDataResponses = new ArrayList<>();
+        allUsers.forEach(user -> {
+            if (user.getRole() != Role.SUPERADMIN) {
+                if (user.getRole() == Role.BANNED) {
+                    userDataResponses.add(new UserDataResponse(user.getFirstname(), user.getLastname(), user.getEmail()));
+                }
+            }
+        });
+        return userDataResponses;
+    }
 }
