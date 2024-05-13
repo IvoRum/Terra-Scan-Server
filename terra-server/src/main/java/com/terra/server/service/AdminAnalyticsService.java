@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +27,7 @@ public class AdminAnalyticsService {
             dateTo = Date.valueOf(LocalDate.now());
         }
         if(dateFrom == null){
-            dateFrom = Date.valueOf(LocalDate.now().minus(90, ChronoUnit.DAYS));
+            dateFrom = Date.valueOf(LocalDate.now().minusDays(90));
         }
         LoginDataResponse response = new LoginDataResponse();
         response.setPage(page);
@@ -43,7 +41,6 @@ public class AdminAnalyticsService {
         }
         if(searchString.startsWith("\"") && searchString.endsWith("\"")){
             //whole word search in all fields
-
             response.setData(logRepository.searchBySingleKeyWord(searchString.substring(1,searchString.length()-1),dateFrom,dateTo));
         } else if(searchString.matches("([a-z,A-Z]+:[A-Z,a-z,\\.,0-9,@]+ ?)+")) {
             //key value pair search

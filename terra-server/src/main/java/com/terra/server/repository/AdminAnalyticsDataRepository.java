@@ -21,8 +21,7 @@ public class AdminAnalyticsDataRepository {
 
     public List<LoginDataDTO> findLogsDateDesc(int startRow, Date from, Date to) {
         Query query = new Query().skip(startRow).limit(100).with(Sort.by(Sort.Direction.DESC, "date"));
-        query.addCriteria(Criteria.where("date").gt(from));
-        query.addCriteria(Criteria.where("date").lt(to));
+        query.addCriteria(Criteria.where("date").gt(from).lt(to));
         return getLoginDataDTOS(query);
     }
 
@@ -34,6 +33,7 @@ public class AdminAnalyticsDataRepository {
                 Criteria.where("ipAddress").regex(keyRegex),
                 Criteria.where("macAddress").regex(keyRegex));
         Query query = new Query().addCriteria(criteria);
+        query.addCriteria(Criteria.where("date").gt(from).lt(to));
         return getLoginDataDTOS(query);
     }
 
@@ -45,6 +45,7 @@ public class AdminAnalyticsDataRepository {
         }
         Criteria criteria = new Criteria().orOperator(criteriaList);
         Query query = new Query().addCriteria(criteria);
+        query.addCriteria(Criteria.where("date").gt(from).lt(to));
         return getLoginDataDTOS(query);
     }
 

@@ -24,7 +24,7 @@ public class AdminAnalyticsController {
     @PostMapping("/loginData")
     public ResponseEntity<LoginDataResponse> getLoginData(@RequestBody LoginDataRequest loginDataRequest) {
         LoginDataResponse response = adminAnalyticsService.getLoginData(loginDataRequest.getPage() != null?
-                loginDataRequest.getPage() : 1, loginDataRequest.getDateFrom(), loginDataRequest.getDateFrom(), loginDataRequest.getSearchString());
+                loginDataRequest.getPage() : 1, loginDataRequest.getDateFrom(), loginDataRequest.getDateTo(), loginDataRequest.getSearchString());
         if (response.getErrorText() != null){
             return ResponseEntity.status(422).body(response);
         }
