@@ -9,4 +9,5 @@ import java.util.List;
 public class LoginDataResponse {
     private Integer page;
     private List<LoginDataDTO> data;
+    private String errorText;
 }

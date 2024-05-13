@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
-public class TerraUserLogEntity {
+public class  TerraUserLogEntity {
     @MongoId
     private ObjectId id;
     private String userEmail;
